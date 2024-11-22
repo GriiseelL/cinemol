@@ -1,5 +1,6 @@
 <?php
-$inputCategory = $_POST["category"];
+$inputfilm = $_POST["film"];
+$inputdesc = $_POST["desc"];
 
 $server = "localhost";
 $username = "root";
@@ -14,15 +15,15 @@ if ($conn->connect_error) {
 
 }
 
-$id = $_GET['category_id'];
+$id = $_GET['film_id'];
 
-$sql = $conn->query("UPDATE categories SET category_name='$inputCategory' WHERE category_id=$id");
+$sql = $conn->query("UPDATE film SET film_title ='$inputfilm', description_film = '$inputdesc' WHERE film_id=$id");
 
 // $query = mysqli_query($database, $sql);
 
 if ($sql == TRUE) {
     // kalau berhasil alihkan ke halaman list-siswa.php
-    header('Location: dasboard-category.php');
+    header('Location: dasboard-film.php');
 } else {
     // kalau gagal tampilkan pesan
     die("Gagal menyimpan perubahan...");

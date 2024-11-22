@@ -10,7 +10,7 @@ if (!$db) {
     die("Gagal terhubung dengan database: " . mysqli_connect_error());
 }
 
-$sql = "SELECT * FROM film";
+$sql = "SELECT * FROM categories";
 $result = $db->query($sql);
 
 $db->close();
@@ -105,37 +105,36 @@ $db->close();
                 </div>
             </div>
             <div class="col py-3">
-                <h1 style="text-align: center; font-family: fantasy; color: #0d6efd">Information about film</h1>
+                <h1 style="text-align: center; font-family: fantasy; color: #0d6efd">Information about categories</h1>
                 <table class="table table-bordered border-primary table-hover" style="margin-top: 50px">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
                             <!-- <th scope="col">Film</th> -->
-                            <th scope="col">Judul Film</th>
-                            <th scope="col">Image</th>
+                            <th scope="col">Kategori</th>
                             <th scope="col">Action</th>
+                            <!-- <th scope="col">Handle</th> -->
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         while ($row = $result->fetch_assoc()) {
-                            $film = $row["film_id"];
+                            $category = $row["category_id"];
 
                             ?>
                             <tr>
-                                <th scope="row"><?php echo $row["film_id"] ?></th>
-                                <td><?php echo $row["film_title"] ?></td>
-                                <td><img src="<?= $row["image_film"]?>" alt=""></td>
+                                <th scope="row"><?php echo $row["category_id"] ?></th>
+                                <td><?php echo $row["category_name"] ?></td>
                                 <td>
-                                    <a href="editJudul.php?film_id=<?php echo $film ?>">Edit</a>
-                                    <a href="actionDeleteJ.php?film_id=<?php echo $film ?>">Delete</a>
+                                    <a href="editCategory.php?category_id=<?php echo $category ?>">Edit</a>
+                                    <a href="actionDelete.php?category_id=<?php echo $category ?>">Delete</a>
                                 </td>
                             </tr>
                         <?php } ?>
                     </tbody>
                 </table>
-                <a href="addFilm.php"><button type="button" class="btn btn-outline-primary">ADD
-                        Film</button></a>
+                <a href="addCategory.php"><button type="button" class="btn btn-outline-primary">ADD
+                        Category</button></a>
             </div>
         </div>
     </div>

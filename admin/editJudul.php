@@ -26,22 +26,27 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $category_id = $_GET["category_id"];
+    $film_id = $_GET["film_id"];
 
-    $sql = $conn->query("SELECT * FROM categories WHERE category_id='$category_id'");
+    $sql = $conn->query("SELECT * FROM film WHERE film_id='$film_id'");
     foreach ($sql as $dt) {
 
         $conn->close();
         ?>
 
-        <form action="actionEditC.php?category_id=<?php echo $category_id ?>" method="POST">
-            <div class="input-group mb-3" style="padding: 80px; padding-top: 40px;">
+        <form action="actionEditJ.php?film_id=<?php echo $film_id ?>" method="POST">
+            <div class="input-group" style="padding-left: 80px; padding-top: 40px;">
                 <span class="input-group-text" id="inputGroup-sizing-default">Category</span>
                 <input type="text" class="form-control" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default" value="<?php echo $dt['category_name'] ?>" name="category">
+                    aria-describedby="inputGroup-sizing-default" value="<?php echo $dt['film_title'] ?>" name="film">
+            </div>
+            <div class="input-group mt-4" style="padding-left: 80px; padding-top: 0px;">
+                <span class="input-group-text" id="inputGroup-sizing-default">Desc</span>
+                <input type="text" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" value="<?php echo $dt['description_film'] ?>" name="desc">
             </div>
         <?php } ?>
-        <button type="submit" class="btn btn-outline-primary" style="margin-left: 80px">UPDATE</button>
+        <button type="submit" class="btn btn-outline-primary mt-4" style="margin-left: 80px">UPDATE</button>
     </form>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

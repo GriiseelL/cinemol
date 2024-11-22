@@ -1,15 +1,15 @@
 <?php
 
-$server = "localhost"; 
-$username = "root"; 
-$password = ""; 
+$server = "localhost";
+$username = "root";
+$password = "";
 $database = "Film";
 
-$conn = new mysqli($server, $username, $password, $database); 
+$conn = new mysqli($server, $username, $password, $database);
 
-if ($conn->connect_error) { 
+if ($conn->connect_error) {
 
- die("Koneksi gagal: " . $conn->connect_error); 
+    die("Koneksi gagal: " . $conn->connect_error);
 
 }
 
@@ -21,7 +21,7 @@ $query = mysqli_query($conn, $sql);
 $result = $conn->query($sql);
 
 if (mysqli_query($conn, $sql)) {
-    header("Location: dasboard-film.php");
+    header("Location: daboard-category.php");
     // echo "hai";
 
 } else {
