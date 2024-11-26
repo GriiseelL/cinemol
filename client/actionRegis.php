@@ -16,15 +16,24 @@ if ($conn->connect_error) {
 $email = $_POST['email'];
 $password = $_POST['password'];
 
-$sql = "INSERT INTO admin (email, password)
+
+if ($email==null) {
+    echo "gagal";
+    return;
+} else{
+    if ($password==null) {
+        echo "ggal";
+        return;
+    }
+}
+$sql = "INSERT INTO users (email, password)
 VALUES ('$email', '$password')";
 
-$result = $conn->query($sql);
 
 if (mysqli_query($conn, $sql)) {
-    header("Location: login-admin.php");
+    header("Location: login-client.php");
     // echo "hai";
-
+return;
 } else {
 
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
