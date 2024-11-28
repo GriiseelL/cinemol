@@ -33,7 +33,7 @@ VALUES ('$email', '$password')";
 if (mysqli_query($conn, $sql)) {
     header("Location: login-client.php");
     // echo "hai";
-return;
+
 } else {
 
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);

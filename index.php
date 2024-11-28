@@ -49,6 +49,9 @@ $conn->close();
                     <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                 </div>
             </div>
+            <button type="button" class="btn btn-primary">Login</button>
+            <button type="button" class="btn btn-success" style="margin-left: 10px;">Registrasi</button>
+
         </div>
     </nav>
     <div class="container"><div class="row">
