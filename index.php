@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 $server = "localhost";
 $username = "root";
@@ -43,34 +44,44 @@ $conn->close();
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="index.php">Home</a>
                     <a class="nav-link" href="#">Features</a>
                     <a class="nav-link" href="#">Pricing</a>
                     <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                 </div>
             </div>
-            <button type="button" class="btn btn-primary">Login</button>
-            <button type="button" class="btn btn-success" style="margin-left: 10px;">Registrasi</button>
+            <?php
+            if (!isset($_SESSION['authuser'])) {
+                ?>
+                <a href="../client/login-client.php"><button type="button" class="btn btn-primary">Login</button></a>
+                <a href="../client/regis-page.php"><button type="button" class="btn btn-success"
+                        style="margin-left: 10px;">Registrasi</button></a>
+            <?php } else { ?>
 
+                <a href="../client/actionOut.php"><button type="button" class="btn btn-primary">Logout</button></a>
+                <button type="button" class="btn btn-secondary ms-2">Trolly</button>
+            <?php } ?>
         </div>
     </nav>
-    <div class="container"><div class="row">
-        <?php
-        while ($row = $result->fetch_assoc()) {
-            ?>
-            <div class="col-md-3" style="margin-left: 20px;">
-                <div class="card" style="width: 18rem; margin-top: 20px;">
-                    <img src="<?= $row["image_film"] ?>" alt="" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title"><?= $row["film_title"]?></h5>
-                        <p class="card-text"><?= $row["description_film"]?></p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+    <div class="container">
+        <div class="row">
+            <?php
+            while ($row = $result->fetch_assoc()) {
+                ?>
+                <div class="col-md-3" style="margin-left: 20px;">
+                    <div class="card" style="width: 18rem; margin-top: 20px;">
+                        <img src="<?= $row["image_film"] ?>" alt="" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= $row["film_title"] ?></h5>
+                            <p class="card-text"><?= $row["description_film"] ?></p>
+                            <a href="/detailFilem.php?film_id=<?php echo $row['film_id'] ?>" class="btn btn-primary">View
+                                this movie</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        <?php } ?>
+            <?php } ?>
+        </div>
     </div>
-</div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>

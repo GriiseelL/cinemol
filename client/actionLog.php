@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 $server = "localhost";
 $username = "root";
@@ -21,8 +22,9 @@ $sql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-
-    $_SESSION['email'] = $email;
+    $tmp = $result->fetch_assoc();
+   
+    $_SESSION['authuser'] = $tmp;
 
     header("Location: ../index.php");
     // echo "hai";
