@@ -16,7 +16,13 @@ $tmp = $_GET["film_id"];
 $tmp2 = $_SESSION['authuser'];
 $tmp3 = $tmp2['user_id'];
 
-if ($tmp3 != null) {
+$cek = "SELECT*FROM trolly WHERE user_id=$tmp3 AND film_id=$tmp";
+$hsl = $conn->query($cek);
+$row = $hsl->fetch_assoc();
+// var_dump($row);
+// return;
+
+if ($row != null) {
     echo "sudah dibeli";
 } else {
 
@@ -26,5 +32,6 @@ $result = $conn->query($sql);
 // $row = $result->fetch_assoc();
 header('Location: /detailFilem.php?film_id='.$tmp);
 }
+
 $conn->close();
 ?>

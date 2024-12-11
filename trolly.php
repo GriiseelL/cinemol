@@ -12,8 +12,11 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+$tmp = $_SESSION["authuser"]["user_id"];
 
-$sql = "SELECT*FROM film";
+$sql = "SELECT*FROM trolly INNER JOIN  film ON trolly.film_id = film.film_id WHERE trolly.user_id= $tmp";
+// var_dump($sql);
+// return;
 $result = $conn->query($sql);
 
 $conn->close();
@@ -29,6 +32,12 @@ $conn->close();
     <title>Bootstrap demo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        .object-fit-cover {
+            object-fit: cover;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -68,18 +77,26 @@ $conn->close();
             <?php
             while ($row = $result->fetch_assoc()) {
                 ?>
-                <div class="col-md-3" style="margin-left: 20px;">
-                    <div class="card" style="width: 18rem; margin-top: 20px;">
-                        <img src="<?= $row["image_film"] ?>" alt="" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= $row["film_title"] ?></h5>
-                            <p class="card-text"><?= $row["description_film"] ?></p>
-                            <a href="/detailFilem.php?film_id=<?php echo $row['film_id'] ?>" class="btn btn-primary">View
-                                this movie</a>
+                <div class="col-12">
+                    <div class="card mb-3" style="height: 300px;">
+                        <div class="row g-0 h-100">
+                            <div class="col-md-4 h-100">
+                                <img src="<?= $row['image_film'] ?>" class="img-fluid h-100 w-100 object-fit-cover"
+                                    alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?= $row["film_title"] ?></h5>
+                                    <p class="card-text"><?= $row["description_film"] ?></p>
+                                    <a href="actionDeleteT.php?trolly_id=<?php echo $row["trolly_id"] ?>"><button
+                                            type="button" class="btn btn-danger">Delete</button></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             <?php } ?>
+            <a href="actionCO.php"><button type="button" class="btn btn-success">Success</button></a>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
