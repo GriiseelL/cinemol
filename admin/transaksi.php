@@ -10,7 +10,7 @@ if (!$db) {
     die("Gagal terhubung dengan database: " . mysqli_connect_error());
 }
 
-$sql = "SELECT * FROM film";
+$sql = "SELECT * FROM payment INNER JOIN users ON payment.user_id = users.user_id";
 $result = $db->query($sql);
 
 $db->close();
@@ -46,8 +46,8 @@ $db->close();
                         </li>
                         <li>
                             <a href="dasboard-film.php" class="nav-link px-0 align-middle">
-                                <i class="fs-4 bi-speedometer2"></i> <span
-                                    class="ms-1 d-none d-sm-inline">Film</span> </a>
+                                <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Film</span>
+                            </a>
                             <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                                 <li class="w-100">
                                     <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Transaksi</span>
@@ -105,37 +105,44 @@ $db->close();
                 </div>
             </div>
             <div class="col py-3">
-                <h1 style="text-align: center; font-family: fantasy; color: #0d6efd">Information about film</h1>
+                <h1 style="text-align: center; font-family: fantasy; color: #0d6efd">Information about categories</h1>
                 <table class="table table-bordered border-primary table-hover" style="margin-top: 50px">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
+                            <!-- <th scope="col">#</th> -->
                             <!-- <th scope="col">Film</th> -->
-                            <th scope="col">Judul Film</th>
-                            <th scope="col">Image</th>
-                            <th scope="col">Action</th>
+                            <th scope="col">Tanggal</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">User</th>
+                            <th scope="col">Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         while ($row = $result->fetch_assoc()) {
-                            $film = $row["film_id"];
-
+                            // $category = $row["category_id"];
+                        
                             ?>
                             <tr>
-                                <th scope="row"><?php echo $row["film_id"] ?></th>
-                                <td><?php echo $row["film_title"] ?></td>
-                                <td><img src="<?= $row["image_film"]?>" alt=""></td>
-                                <td>
-                                    <a href="editJudul.php?film_id=<?php echo $film ?>">Edit</a>
-                                    <a href="actionDeleteJ.php?film_id=<?php echo $film ?>">Delete</a>
-                                </td>
+                                <th><?php echo $row["date_payment"] ?></th>
+                                <td><?php echo $row["total_payment"] ?></td>
+                                <td><?php echo $row["username"] ?></td>
+                                <td><?php echo ($row["status"]) == 0 ? "belum" : "sudah" ?></td>
+                                <?php
+                                if ($row["status"] == 0) {
+                                // $row["status"] = "belum";
+                                // }else {
+                                // $row["status"] = "sudah";
+                                // }
+                                ?>
+                                <td><a href="actionBayar.php?payment_id=<?php echo $row['payment_id'] ?>"
+                                        class="btn btn-outline-info">Bayar</a></td>
+                                <?php } ?>
                             </tr>
                         <?php } ?>
                     </tbody>
                 </table>
-                <a href="addFilm.php"><button type="button" class="btn btn-outline-primary">ADD
-                        Film</button></a>
             </div>
         </div>
     </div>

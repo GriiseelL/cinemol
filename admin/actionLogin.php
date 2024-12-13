@@ -24,7 +24,7 @@ if ($result->num_rows > 0) {
 
     $_SESSION['email'] = $email;
 
-    header("Location: daboard-category.php");
+    header("Location: dasboard-category.php");
     // echo "hai";
 
 } else {

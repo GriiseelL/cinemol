@@ -58,7 +58,7 @@ $result = $conn->query($sql);
         <?php } else { ?>
 
           <a href="../client/actionOut.php"><button type="button" class="btn btn-primary">Logout</button></a>
-          <button type="button" class="btn btn-secondary ms-2">Trolly</button>
+          <a href="trolly.php"><button type="button" class="btn btn-secondary ms-2">Trolly</button></a>
         <?php } ?>
       </div>
     </nav>
@@ -70,7 +70,7 @@ $result = $conn->query($sql);
         <img src="<?php echo $row['image_film'] ?>" alt="" width=" 20%" style="margin-top: 20px">
       </center>
       <h2 class="mt-4" style="text-align: center;"><?php echo $row['film_title'] ?></h2>
-      <h4 class="mt-4" style="text-align: center;"><?= $row["price"]?></h4>
+      <h4 class="mt-4" style="text-align: center;"><?= $row["price"] ?></h4>
       <p class="ms-5"><?php echo $row['description_film'] ?></p>
       <a href="/actionOrder.php?film_id=<?php echo $row['film_id'] ?>"><button type="button"
           class="btn btn-warning ms-5">Order</button></a>

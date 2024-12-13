@@ -47,6 +47,7 @@ $conn->close();
                     <a class="nav-link active" aria-current="page" href="index.php">Home</a>
                     <a class="nav-link" href="#">Features</a>
                     <a class="nav-link" href="#">Pricing</a>
+                    <a class="nav-link" href="historyPayment.php">History payment</a>
                     <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                 </div>
             </div>

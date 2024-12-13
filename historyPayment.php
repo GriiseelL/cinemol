@@ -13,11 +13,9 @@ if ($conn->connect_error) {
 }
 
 $tmp = $_SESSION["authuser"]["user_id"];
-
-$sql = "SELECT*FROM trolly INNER JOIN  film ON trolly.film_id = film.film_id WHERE trolly.user_id= $tmp";
-// var_dump($sql);
-// return;
+$sql = "SELECT*FROM payment WHERE user_id=$tmp";
 $result = $conn->query($sql);
+
 
 $conn->close();
 ?>
@@ -32,12 +30,6 @@ $conn->close();
     <title>Bootstrap demo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <style>
-        .object-fit-cover {
-            object-fit: cover;
-        }
-    </style>
-
 </head>
 
 <body>
@@ -56,6 +48,7 @@ $conn->close();
                     <a class="nav-link active" aria-current="page" href="index.php">Home</a>
                     <a class="nav-link" href="#">Features</a>
                     <a class="nav-link" href="#">Pricing</a>
+                    <a class="nav-link" href="#">History payment</a>
                     <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                 </div>
             </div>
@@ -73,36 +66,35 @@ $conn->close();
         </div>
     </nav>
     <div class="container">
-        <div class="row">
+        <table class="table table-borderless">
+
             <?php
-            $total = 0;
+            $no = 0;
             while ($row = $result->fetch_assoc()) {
-                ?>
-                <div class="col-12">
-                    <div class="card mb-3" style="height: 300px;">
-                        <div class="row g-0 h-100">
-                            <div class="col-md-4 h-100">
-                                <img src="<?= $row['image_film'] ?>" class="img-fluid h-100 w-100 object-fit-cover"
-                                    alt="...">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title"><?= $row["film_title"] ?></h5>
-                                    <p class="card-text"><?= $row["description_film"] ?></p>
-                                    <h6><?= $row["price"] ?></h6>
-                                    <a href="actionDeleteT.php?trolly_id=<?php echo $row["trolly_id"] ?>"><button
-                                            type="button" class="btn btn-danger">Delete</button></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <?php
-                $total = $total + $row["price"];
-            } ?>
-            <h6>Total payment : <?= $total ?> </h6>
-            <a href="actionCO.php"><button type="button" class="btn btn-success">Success</button></a>
-        </div>
+                $no = $no + 1;
+                // $status = $row["status"];
+
+                // if ($row["status"] == 0) {
+                //     $row["status"] = "belum";
+                // }else {
+                //     $row["status"] = "sudah";
+                // }
+                
+            ?>
+                <tr>
+                    <th>No</th>
+                    <th>Tanggal</th>
+                    <th>Total price</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td><?php  echo $no ?></td>
+                    <td><?php echo $row["date_payment"] ?></td>
+                    <td><?php echo $row["total_payment"]?></td>
+                    <td><?php echo ($row["status"]==1) ? "sudah":"belum" ?></td>
+                </tr>
+            <?php } ?>
+        </table>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
